@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NASA Space Explorer | Pro Edition</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA Explorer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -19,28 +19,25 @@
 
 <section class="hero">
   <h2>Descubre el Cosmos</h2>
-  <p>Explora la Imagen Astronómica del Día (APOD) y asteroides cercanos a la Tierra</p>
+  <p>APOD y asteroides cercanos a la Tierra</p>
 </section>
 
-<!-- Una sola barra de controles que cambia según la sección -->
-<div class="controls" id="apodControls" style="display:none;">
-  <input type="date" id="start">
-  <input type="date" id="end">
-  <button class="btn btn-primary" onclick="loadRange()">🔍 Buscar Rango</button>
-  <button class="btn btn-primary" style="background:#334155; color:white;" onclick="loadToday()">📅 Hoy</button>
+<div class="controls" id="apodControls" style="display:none">
+  <input type="date" id="start"><input type="date" id="end">
+  <button class="btn btn-primary" onclick="loadRange()">🔍 Buscar</button>
+  <button class="btn btn-primary" style="background:#334155;color:white" onclick="loadToday()">📅 Hoy</button>
 </div>
 
-<div class="controls" id="neowsControls" style="display:none;">
-  <input type="date" id="neowsStart">
-  <input type="date" id="neowsEnd">
-  <button class="btn btn-primary" onclick="loadAsteroids()">🔍 Buscar Asteroides</button>
-  <small style="color:#94a3b8; align-self:center;">Máximo 7 días de rango</small>
+<div class="controls" id="neowsControls" style="display:none">
+  <input type="date" id="neowsStart"><input type="date" id="neowsEnd">
+  <button class="btn btn-primary" onclick="loadAsteroids()">🔍 Buscar</button>
+  <small style="color:#94a3b8;align-self:center">Máx. 7 días</small>
 </div>
 
 <div id="statusContainer"></div>
 <div class="gallery" id="gallery"></div>
 
-<div class="modal" id="modal" onclick="if(event.target===this) closeModal()">
+<div class="modal" id="modal" onclick="event.target===this&&closeModal()">
   <div class="modal-content">
     <button class="close-btn" onclick="closeModal()">✕</button>
     <div id="modalBody" class="modal-body"></div>
