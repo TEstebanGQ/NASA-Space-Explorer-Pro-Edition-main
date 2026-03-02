@@ -1,241 +1,176 @@
 # 🚀 NASA Space Explorer – Pro Edition
 
-Aplicación web interactiva para explorar la **Imagen Astronómica del Día (APOD)** de la NASA utilizando la API oficial de [NASA Open APIs](https://api.nasa.gov/).
+Aplicación web interactiva para explorar datos espaciales reales utilizando las APIs oficiales de la NASA.
 
----
+Permite consultar:
+
+- 🌌 Imagen Astronómica del Día (APOD)
+- ☄️ Asteroides cercanos a la Tierra (NeoWs)
 
 ## 🌌 ¿Qué permite hacer?
 
-- 📅 Consultar la imagen astronómica del día
-- 🔎 Buscar imágenes por rango de fechas
-- 🖼️ Visualizar información detallada en un modal elegante
-- ❤️ Guardar y eliminar imágenes favoritas
-- 📥 Descargar imágenes en alta resolución (HD)
-- ⚡ Experiencia moderna con animaciones y diseño glassmorphism
+### 📷 APOD – Astronomy Picture of the Day
 
----
+- Consultar la imagen astronómica del día
+- Buscar imágenes por rango de fechas
+- Visualizar detalles en modal interactivo
+- Descargar imagen en HD
+- Guardar en favoritos
+
+### ☄️ Asteroides Cercanos (NeoWs)
+
+- Consultar asteroides en rango máximo de 7 días
+- Ver diámetro mínimo y máximo
+- Ver velocidad y distancia a la Tierra
+- Identificar si es potencialmente peligroso
+- Acceder al enlace oficial JPL
+- Guardar en favoritos
+
+## 🔭 APIs Utilizadas
+
+### 📡 APOD – Astronomy Picture of the Day
+
+```
+https://api.nasa.gov/planetary/apod
+```
+
+### ☄️ NeoWs – Near Earth Object Web Service
+
+```
+https://api.nasa.gov/neo/rest/v1/feed
+```
+
+Documentación oficial:
+ https://api.nasa.gov/
 
 ## 🏗️ Arquitectura del Proyecto
 
 ```
 📁 nasa-space-explorer/
 │
-├── index.html     → Estructura principal de la aplicación
-├── styles.css     → Diseño visual, animaciones y layout
-└── app.js         → Lógica, API, renderizado y favoritos
+├── index.html     → Estructura principal
+├── styles.css     → Diseño, animaciones y layout
+└── app.js         → Lógica, APIs, renderizado y favoritos
 ```
 
----
-
-## 🧠 Tecnologías Utilizadas
+## 🧠 Tecnologías Utilizada
 
 - HTML5
 - CSS3 (Glassmorphism + Animaciones modernas)
 - JavaScript ES6+
 - Fetch API
 - LocalStorage
-- API pública de la NASA (APOD)
+- Map() para gestión dinámica de modales
+- APIs públicas de la NASA
 
----
+## ❤️ Sistema de Favoritos Avanzado
 
-## 🔭 API Utilizada
+Características:
 
-### 📡 APOD – Astronomy Picture of the Day
-
-**Endpoint:**
-```
-https://api.nasa.gov/planetary/apod
-```
-
-**Parámetros utilizados:**
-
-| Parámetro    | Descripción                        |
-|--------------|------------------------------------|
-| `api_key`    | Clave de acceso a la API           |
-| `start_date` | Fecha inicial (`YYYY-MM-DD`)       |
-| `end_date`   | Fecha final (`YYYY-MM-DD`)         |
-
-🔗 [Documentación oficial de la NASA API](https://api.nasa.gov/)
-
----
-
-## ⚙️ Instalación y Uso
-
-### 1️⃣ Clonar el repositorio
-
-```bash
-git clone https://github.com/tuusuario/nasa-space-explorer.git
-cd nasa-space-explorer
-```
-
-### 2️⃣ Configurar la API Key
-
-En `app.js`:
-
-```javascript
-const API_KEY = "TU_API_KEY_AQUI";
-```
-
-> Puedes obtener una API key gratuita desde el [portal de desarrolladores de la NASA](https://api.nasa.gov/).
-
-### 3️⃣ Ejecutar
-
-Simplemente abre `index.html` en tu navegador.
-
-> ✅ No requiere servidor ni dependencias externas.
-
----
-
-## 🧩 Funcionalidades Detalladas
-
-### 📅 Cargar Imagen del Día — `loadToday()`
-- Consulta la API sin parámetros de fecha
-- Renderiza la imagen del día actual
-
-### 🔍 Buscar por Rango — `loadRange()`
-Validaciones incluidas:
-- Ambas fechas deben estar presentes
-- La fecha inicial no puede ser mayor a la final
-- No se permiten fechas futuras
-
-### 🖼️ Modal Interactivo
-Al hacer clic en una tarjeta:
-- Muestra la imagen en HD
-- Muestra la explicación completa, fecha y título
-- Botón para guardar/eliminar de favoritos
-- Botón para descargar la imagen HD
-
-### ❤️ Sistema de Favoritos
 - Persistencia con `localStorage`
-- Clave utilizada: `nasa_favs`
+- Manejo de múltiples tipos de datos (APOD + Asteroides)
+- Identificación dinámica según tipo
+- Renderizado condicional
+- Eliminación en tiempo real
 
-Funciones principales:
-```javascript
-getFavorites()
-checkIfFavorite(date)
-toggleFavorite(data)
-showFavorites()
+Clave utilizada:
+
+```
+nasa_favs
 ```
 
----
+## 🧩 Arquitectura Interna (JavaScript)
+
+| Capa          | Responsabilidad                               |
+| ------------- | --------------------------------------------- |
+| Configuración | API_KEY, BASE_URL, referencias DOM            |
+| Servicios     | fetchAPOD(), fetchNeoWs()                     |
+| UI Helpers    | toast(), loading(), renderItems()             |
+| Componentes   | createApodCard(), createNeoCard()             |
+| Modales       | openApodModal(), openNeoModal(), closeModal() |
+| Estado        | modalItems (Map), dataset views               |
+| Acciones      | loadToday(), loadRange(), loadAsteroids()     |
+
+## 🛡️ Validaciones Implementadas
+
+### APOD
+
+- No permite fechas futuras
+- Fecha inicial no puede ser mayor a la final
+
+### Asteroides
+
+- Máximo 7 días por consulta
+- Validación de fechas obligatorias
+- Orden automático por peligrosidad
 
 ## 🎨 Diseño y UX
 
-### ✨ Estilo Visual
-- Glassmorphism
+- Glassmorphism moderno
 - Gradientes espaciales
-- Animaciones suaves
 - Hover effects con profundidad
-- Diseño responsive
-
-### 🎬 Animaciones
-- `fadeIn`
-- `slideUp`
-- Escalado en hover de imágenes
-- Toast animado
-
----
-
-## 🗂️ Arquitectura Interna (JavaScript)
-
-| Capa | Elementos |
-|------|-----------|
-| **Configuración** | `API_KEY`, `BASE_URL`, `gallery`, `statusContainer` |
-| **Servicios (Datos)** | `apiCall()` – fetch, errores, normalización, loader |
-| **UI Helpers** | `showToast()`, `showLoading()`, `renderGallery()` |
-| **Componentes** | `createCard()`, `openModal()`, `closeModal()` |
-| **Acciones principales** | `loadToday()`, `loadRange()` |
-
----
+- Animaciones `fadeIn` y `slideUp`
+- Modal dinámico interactivo
+- Toast de notificaciones
+- Diseño completamente responsive
 
 ## 📱 Responsive Design
 
-La galería utiliza CSS Grid adaptable:
+Implementado con CSS Grid adaptable:
 
-```css
+```
 grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 ```
 
-Compatible con: Desktop · Tablet · Mobile
+Compatible con:
 
----
-
-## 🛡️ Manejo de Errores
-
-- Error de conexión → Toast de notificación 🚀
-- Validación de fechas antes de llamar a la API
-- Control de estado de carga (loading)
-- Fallback cuando no hay imágenes disponibles
-
----
-
-## 🔐 Buenas Prácticas
-
-- `loading="lazy"` en imágenes para mejor rendimiento
-- Validación previa a las llamadas a la API
-- Manejo seguro de favoritos con JSON
-- Restricción de fechas máximas al día actual
-
----
-
-## 🚀 Posibles Mejoras Futuras
-
-- [ ] 🌙 Modo oscuro / claro
-- [ ] 🔎 Búsqueda por palabra clave
-- [ ] 🎥 Soporte para videos (actualmente solo imágenes)
-- [ ] 🔄 Paginación
-- [ ] 🗃️ Backend para guardar favoritos en la nube
-- [ ] 📤 Compartir en redes sociales
-- [ ] 📊 Estadísticas de imágenes consultadas
-
----
+- Desktop
+- Tablet
+- Mobile
 
 ## 🧪 Flujo de Usuario
 
-1. El usuario abre la aplicación
-2. Se carga automáticamente la imagen del día
-3. Selecciona un rango de fechas
-4. Visualiza los resultados en grid
-5. Hace clic en una imagen para ver detalles
-6. La guarda en favoritos
-7. Accede a sus favoritos desde el navbar
+1. La aplicación carga automáticamente la imagen del día
+2. El usuario puede cambiar a sección de asteroides
+3. Selecciona rango de fechas
+4. Visualiza resultados en grid dinámico
+5. Abre modal con información detallada
+6. Guarda o elimina de favoritos
+7. Consulta favoritos desde el navbar
 
----
+## 🛡️ Manejo de Errores
+
+- Toast en errores de conexión
+- Control de estado loading
+- Mensajes cuando no hay datos disponibles
+- Validaciones antes de consumir API
+
+## 🚀 Posibles Mejoras Futuras
+
+-  Soporte para videos en APOD
+-  Skeleton loaders
+-  Filtros por asteroides peligrosos
+-  Backend proxy para ocultar API Key
+-  Deploy en Vercel o Netlify
+-  Compartir imágenes
+-  Paginación inteligente
 
 ## 🏆 Objetivo del Proyecto
 
 Este proyecto demuestra:
 
-- Consumo de APIs REST
-- Manipulación del DOM
-- Arquitectura modular en frontend puro
-- Manejo de estado en cliente
-- Experiencia de usuario moderna sin frameworks
-
----
-
-## 📄 Licencia
-
-Proyecto educativo/demo. Uso libre para fines personales y de aprendizaje.
-
----
+- Consumo de APIs REST reales
+- Manipulación avanzada del DOM
+- Gestión de estado en frontend puro
+- Persistencia en cliente
+- Arquitectura modular sin frameworks
+- Experiencia de usuario moderna
 
 ## 👨‍💻 Autor
-Desarrollado por Cristian Diaz - **Trainer en Desarrollo de Software**
 
-Desarrollado como proyecto frontend para práctica de consumo de APIs y manipulación del DOM.
+**Tomás Esteban González Quintero**
+ D1 
 
----
+## 📅 Año
 
-
-<p align="center">
-  <img width="300" src="https://i.imgur.com/YYf2LgH.png" alt="Logo del autor">
-</p>
-
----
-<p align="center">
-  2026
-</p> 
----
-
-> 🌠 **NASA Space Explorer – Pro Edition** es una aplicación moderna, ligera y visualmente atractiva que permite explorar el universo desde el navegador con datos reales proporcionados por la NASA.
+2026
