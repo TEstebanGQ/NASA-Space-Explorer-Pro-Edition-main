@@ -176,8 +176,8 @@ function openNeoModal(n) {             // modal con detalles del asteroide + fav
 function closeModal() {                // cierro el modal y quito la clase del body
   $("modal").classList.remove("active");
   document.body.classList.remove("modal-open");
+  modalItems.clear();
   // Limpiamos los items viejos 
-  // modalItems.clear();
 }
 
 // Favoritos 
