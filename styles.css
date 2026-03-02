@@ -45,6 +45,12 @@ nav h1 {
     letter-spacing: 1px;
 }
 
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .btn {
     padding: 10px 20px;
     border-radius: 8px;
@@ -97,6 +103,7 @@ input[type="date"] {
     padding: 0 5% 50px;
 }
 
+/* ===== Cards base ===== */
 .card {
     background: var(--card-bg);
     backdrop-filter: blur(10px);
@@ -135,6 +142,65 @@ input[type="date"] {
 .card h3 { font-size: 1.1rem; margin-bottom: 8px; color: #fff; }
 .card small { color: var(--primary); font-weight: bold; }
 
+/* ✅ NUEVO: Card asteroide */
+.asteroid-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+}
+
+.asteroid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.asteroid-header.danger { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+.asteroid-header.safe   { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+
+.asteroid-icon { font-size: 1.4rem; }
+
+.asteroid-stats {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--glass);
+}
+
+.stat-label { color: #94a3b8; }
+.stat-value { color: #fff; font-weight: 600; }
+
+/* ✅ NUEVO: Grid modal asteroide */
+.asteroid-modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.asteroid-modal-stat {
+    background: var(--glass);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.asteroid-modal-stat .stat-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+.asteroid-modal-stat .stat-value { font-size: 1rem; font-weight: 700; color: #fff; }
+
 /* ===== Modal ===== */
 .modal {
     position: fixed;
@@ -151,6 +217,7 @@ input[type="date"] {
 }
 
 .modal.active { opacity: 1; pointer-events: all; }
+body.modal-open { overflow: hidden; }
 
 .modal-content {
     background: #0f172a;
@@ -165,6 +232,7 @@ input[type="date"] {
 
 .modal-body { padding: 30px; }
 .modal-body img { width: 100%; border-radius: 12px; margin: 20px 0; }
+
 .close-btn {
     position: absolute;
     top: 20px;
@@ -182,9 +250,9 @@ input[type="date"] {
 
 /* ===== Animations ===== */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { 
-    from { opacity: 0; transform: translateY(30px); } 
-    to { opacity: 1; transform: translateY(0); } 
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== Toast ===== */
@@ -212,4 +280,12 @@ input[type="date"] {
     padding: 50px;
     font-size: 1.2rem;
     color: var(--primary);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+    nav { flex-direction: column; gap: 12px; }
+    .nav-buttons { justify-content: center; }
+    .asteroid-modal-grid { grid-template-columns: 1fr; }
+    .hero h2 { font-size: 1.8rem; }
 }
